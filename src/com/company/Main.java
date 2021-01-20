@@ -8,5 +8,9 @@ public class Main {
         game.getNumPlayers();
         game.getPlayerNames();
         game.getNumRounds();
+
+        while (game.numRounds() > 0) {
+            game.playRound();
+        }
     }
 }
