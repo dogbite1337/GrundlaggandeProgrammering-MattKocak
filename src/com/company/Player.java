@@ -15,6 +15,9 @@ public class Player {
     private ArrayList<Hare> femaleHare;
     private ArrayList<Mouse> maleMouse;
     private ArrayList<Mouse> femaleMouse;
+    private int hay;
+    private int soy;
+    private int pellets;
 
     public Player(String name) {
         this.name = name;
@@ -29,6 +32,9 @@ public class Player {
         femaleHare = new ArrayList<>();
         maleMouse = new ArrayList<>();
         femaleMouse = new ArrayList<>();
+        this.hay = 0;
+        this.soy = 0;
+        this.pellets = 0;
     }
 
     public String getName() {
@@ -91,5 +97,23 @@ public class Player {
         }
 
         this.money -= Mouse.cost;
+    }
+
+    public void buyHay(int amount) {
+        this.hay += amount;
+
+        this.money -= (Hay.cost * amount);
+    }
+
+    public void buySoy(int amount) {
+        this.soy += amount;
+
+        this.money -= (Soy.cost * amount);
+    }
+
+    public void buyPellets(int amount) {
+        this.pellets += amount;
+
+        this.money -= (Pellets.cost * amount);
     }
 }

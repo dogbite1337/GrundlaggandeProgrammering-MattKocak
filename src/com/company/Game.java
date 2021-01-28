@@ -14,97 +14,52 @@ public class Game {
     }
 
     public void getNumPlayers() {
-        Scanner scan = new Scanner(System.in);
-
         do {
-            System.out.print("Number of players (1-4): ");
-
-            try {
-                String input = scan.nextLine();
-
-                if (input.toLowerCase().equals("quit")) {
-                    this.quit();
-                }
-
-                this.numPlayers = Integer.parseInt(input);
-
-                if (this.numPlayers < 1 || this.numPlayers > 4) {
-                    throw new Exception();
-                }
-            } catch (Exception e) {
-                System.out.println("\nPlease enter a valid number between 1 and 4");
-            }
-        } while (this.numPlayers < 1 || this.numPlayers > 4);
+            this.numPlayers = GeneralGameHelper.getPositiveNumberInRangeQ("Number of players (1-4): ", 1, 4);
+        } while (this.numPlayers == 0);
 
         System.out.println("\n" + this.numPlayers + " player(s) will be playing this game\n");
     }
 
     public void getPlayerNames() {
-        Scanner scan = new Scanner(System.in);
-
         for (int i = 1; i <= numPlayers; i++) {
-            String input = "";
+            String input;
 
             do {
-                System.out.print("Player " + i + " name: ");
+                input = GeneralGameHelper.getNonEmptyStringQ("Player " + i + " name: ");
 
-                try {
-                    input = scan.nextLine();
-
-                    if (input.toLowerCase().equals("quit")) {
-                        this.quit();
-                        System.out.println("\n\"Quit\" cannot be used as a name");
+                for (Player p : players) {
+                    if (p.getName().toLowerCase().equals(input.toLowerCase())) {
+                        System.out.println("\n" + input + " was already used by another player. Please choose another name");
+                        input = "";
+                        break;
                     }
-
-                    if (input.isEmpty()) {
-                        throw new Exception();
-                    }
-
-                    players.add(new Player(input));
-                } catch (Exception e) {
-                    System.out.println("\nPlease enter a name");
                 }
-            } while (input.isEmpty() || input.toLowerCase().equals("quit"));
+            } while (input.isEmpty());
+
+            players.add(new Player(input));
         }
 
         System.out.println("\nThe following player(s) will be playing this game");
 
-        for (Player player : players) {
-            System.out.println(player.getName());
+        for (Player p : players) {
+            System.out.println(p.getName());
         }
 
         System.out.println("\nEach player will start with " + players.get(0).getMoney() + " coins\n");
     }
 
     public void getNumRounds() {
-        Scanner scan = new Scanner(System.in);
-
         do {
-            System.out.print("Number of rounds to play (5-30): ");
-
-            try {
-                String input = scan.nextLine();
-
-                if (input.toLowerCase().equals("quit")) {
-                    this.quit();
-                }
-
-                this.round = Integer.parseInt(input);
-
-                if (this.round < 5 || this.round > 30) {
-                    throw new Exception();
-                }
-            } catch (Exception e) {
-                System.out.println("\nPlease enter a valid number between 5 and 30");
-            }
-        } while (this.round < 5 || this.round > 30);
+            round = GeneralGameHelper.getPositiveNumberInRangeQ("Number of rounds to play (5-30): ", 5, 30);
+        } while (round == 0);
 
         System.out.println("\nYou will be playing " + this.round + " rounds");
     }
 
     public void playRound() {
-        for (int i = 1; i <= players.size(); i++) {
-            System.out.println("\nRound " + round + ": Player " + i + "'s turn\n");
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println("\nRound " + round + ", " + players.get(i).getName() + "'s turn\n");
             System.out.println("Please select an action below. You are only able to complete one of the actions per round\n");
             int doneWithTurn = 0;
 
@@ -113,11 +68,11 @@ public class Game {
 
                 switch (selection) {
                     case 1:
-                        doneWithTurn = this.getBuyingAnimalsSelection(players.get(i - 1));
-                        break;/*
-                    case 2:
-                        this.getBuyingFoodSelection();
+                        doneWithTurn = this.getBuyingAnimalsSelection(players.get(i));
                         break;
+                    case 2:
+                        doneWithTurn = this.getBuyingFoodSelection(players.get(i));
+                        break;/*
                     case 3:
                         this.getFeedingSelection();
                         break;
@@ -198,7 +153,11 @@ public class Game {
             }
 
             if (selection > 0 && selection < 6) {
-                canNotGoBack = this.chooseSexAndNameAndBuy(player, selection);
+                int temp = this.chooseSexAndNameAndBuy(player, selection);
+
+                if (canNotGoBack == 0 && temp == 1) {
+                    canNotGoBack = 1;
+                }
             }
 
         } while (selection < 6 || selection > 7);
@@ -343,6 +302,37 @@ public class Game {
         } while (name.isEmpty());
 
         return name;
+    }
+
+    private int getBuyingFoodSelection(Player player) {
+        int selection;
+        int canNotGoBack = 0;
+
+        do {
+            BuyingFoodHelper.printBuyingFoodMenu(player);
+
+            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 5);
+
+            if (selection == 4 && canNotGoBack == 1) {
+                System.out.println("\nYou have already bought food. You cannot take other actions besides buying food this turn.");
+                selection = 0;
+            }
+
+            if (selection > 0 && selection < 4) {
+                int temp = BuyingFoodHelper.chooseAmountAndBuy(player, selection);
+
+                if (canNotGoBack == 0 && temp == 1) {
+                    canNotGoBack = 1;
+                }
+            }
+
+        } while (selection < 4);
+
+        if (selection == 4) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     public int numRounds() {
