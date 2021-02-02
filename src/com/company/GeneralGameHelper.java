@@ -52,6 +52,33 @@ public class GeneralGameHelper {
         return selection;
     }
 
+    public static String getNonEmptyString(String prompt) {
+        Scanner scan = new Scanner(System.in);
+        String input = "";
+
+        System.out.print(prompt);
+
+        try {
+            input = scan.nextLine();
+
+            if (input.toLowerCase().equals("quit")) {
+                System.out.println("\n\"Quit\" cannot be used as a name");
+            }
+
+            if (input.isEmpty()) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            System.out.println("\nPlease enter a name");
+        }
+
+        if (input.toLowerCase().equals("quit")) {
+            input = "";
+        }
+
+        return input;
+    }
+
     public static String getNonEmptyStringQ(String prompt) {
         Scanner scan = new Scanner(System.in);
         String input = "";
@@ -78,6 +105,14 @@ public class GeneralGameHelper {
         }
 
         return input;
+    }
+
+    public static String getString(String prompt) {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print(prompt);
+
+        return scan.nextLine();
     }
 
     public static int getPositiveNumber(String prompt) {

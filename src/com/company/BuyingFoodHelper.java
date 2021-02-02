@@ -3,8 +3,22 @@ package com.company;
 public class BuyingFoodHelper {
 
     public static void printBuyingFoodMenu(Player player) {
-        System.out.println("\nYou have " + player.getMoney() + " coins\n");
-        System.out.println("1) Buy hay (" + Hay.cost + " coins)");
+        System.out.print("\nYou have " + player.getMoney() + " coins");
+        if (player.getHay() != 0 || player.getSoy() != 0 || player.getPellets() != 0) {
+            System.out.println(" and the following:");
+            if (player.getHay() != 0) {
+                System.out.println(player.getHay() + " bales of hay");
+            }
+            if (player.getSoy() != 0) {
+                System.out.println(player.getSoy() + " bushels of soy");
+            }
+            if (player.getPellets() != 0) {
+                System.out.println(player.getPellets() + " bags of pellets");
+            }
+        } else {
+            System.out.println();
+        }
+        System.out.println("\n1) Buy hay (" + Hay.cost + " coins)");
         System.out.println("2) Buy soy (" + Soy.cost + " coins)");
         System.out.println("3) Buy pellets (" + Pellets.cost + " coins)");
         System.out.println("4) Back to main menu");

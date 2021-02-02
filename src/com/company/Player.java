@@ -49,6 +49,18 @@ public class Player {
         this.money = money;
     }
 
+    public int getHay() {
+        return hay;
+    }
+
+    public int getSoy() {
+        return soy;
+    }
+
+    public int getPellets() {
+        return pellets;
+    }
+
     public void buyElephant(String name, int sex) {
         if (sex == 1) {
             maleElephant.add(new Elephant(name, sex));
@@ -115,5 +127,242 @@ public class Player {
         this.pellets += amount;
 
         this.money -= (Pellets.cost * amount);
+    }
+
+    public boolean isNamePresent(String name) {
+        for (Elephant e : maleElephant) {
+            if (e.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Elephant e : femaleElephant) {
+            if (e.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Buffalo b : maleBuffalo) {
+            if (b.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Buffalo b : femaleBuffalo) {
+            if (b.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Boar b : maleBoar) {
+            if (b.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Boar b : femaleBoar) {
+            if (b.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Hare h : maleHare) {
+            if (h.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Hare h : femaleHare) {
+            if (h.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Mouse m : maleMouse) {
+            if (m.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        for (Mouse m : femaleMouse) {
+            if (m.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<Animal> printUnhealthyAnimals(String type) {
+        ArrayList<Animal> list = new ArrayList<>();
+
+        if (type.equals("Elephant")) {
+            for (Elephant e : maleElephant) {
+                if (e.getHealth() != 100) {
+                    list.add(e);
+                    System.out.println("\"" + e.getName() + "\" the male elephant has " + e.getHealth() + " health");
+                }
+            }
+            for (Elephant e : femaleElephant) {
+                if (e.getHealth() != 100) {
+                    list.add(e);
+                    System.out.println("\"" + e.getName() + "\" the female elephant has " + e.getHealth() + " health");
+                }
+            }
+        }
+
+        if (type.equals("Buffalo")) {
+            for (Buffalo b : maleBuffalo) {
+                if (b.getHealth() != 100) {
+                    list.add(b);
+                    System.out.println("\"" + b.getName() + "\" the male buffalo has " + b.getHealth() + " health");
+                }
+            }
+            for (Buffalo b : femaleBuffalo) {
+                if (b.getHealth() != 100) {
+                    list.add(b);
+                    System.out.println("\"" + b.getName() + "\" the female buffalo has " + b.getHealth() + " health");
+                }
+            }
+        }
+
+        if (type.equals("Boar")) {
+            for (Boar b : maleBoar) {
+                if (b.getHealth() != 100) {
+                    list.add(b);
+                    System.out.println("\"" + b.getName() + "\" the male boar has " + b.getHealth() + " health");
+                }
+            }
+            for (Boar b : femaleBoar) {
+                if (b.getHealth() != 100) {
+                    list.add(b);
+                    System.out.println("\"" + b.getName() + "\" the female boar has " + b.getHealth() + " health");
+                }
+            }
+        }
+
+        if (type.equals("Hare")) {
+            for (Hare h : maleHare) {
+                if (h.getHealth() != 100) {
+                    list.add(h);
+                    System.out.println("\"" + h.getName() + "\" the male hare has " + h.getHealth() + " health");
+                }
+            }
+            for (Hare h : femaleHare) {
+                if (h.getHealth() != 100) {
+                    list.add(h);
+                    System.out.println("\"" + h.getName() + "\" the female hare has " + h.getHealth() + " health");
+                }
+            }
+        }
+
+        if (type.equals("Mouse")) {
+            for (Mouse m : maleMouse) {
+                if (m.getHealth() != 100) {
+                    list.add(m);
+                    System.out.println("\"" + m.getName() + "\" the male mouse has " + m.getHealth() + " health");
+                }
+            }
+            for (Mouse m : femaleMouse) {
+                if (m.getHealth() != 100) {
+                    list.add(m);
+                    System.out.println("\"" + m.getName() + "\" the female mouse has " + m.getHealth() + " health");
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public void feedHay(Animal animal) {
+        hay--;
+        animal.increaseHealth(10);
+    }
+
+    public void feedSoy(Animal animal) {
+        soy--;
+        animal.increaseHealth(10);
+    }
+
+    public void feedPellets(Animal animal) {
+        pellets--;
+        animal.increaseHealth(10);
+    }
+
+    public List<Animal> loseHealth() {
+        List<Animal> list = new ArrayList<>();
+
+        for (Animal a : maleElephant) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                maleElephant.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : femaleElephant) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                femaleElephant.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : maleBuffalo) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                maleBuffalo.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : femaleBuffalo) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                femaleBuffalo.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : maleBoar) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                maleBoar.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : femaleBoar) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                femaleBoar.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : maleHare) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                maleHare.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : femaleHare) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                femaleHare.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : maleMouse) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                maleMouse.remove(a);
+                list.add(a);
+            }
+        }
+        for (Animal a : femaleMouse) {
+            Random rand = new Random();
+            if (a.decreaseHealth(rand.nextInt(21) + 10)) {
+                femaleMouse.remove(a);
+                list.add(a);
+            }
+        }
+
+        return list;
     }
 }

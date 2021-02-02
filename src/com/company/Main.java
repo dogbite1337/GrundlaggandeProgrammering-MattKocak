@@ -9,7 +9,7 @@ public class Main {
         game.getPlayerNames();
         game.getNumRounds();
 
-        while (game.numRounds() > 0) {
+        while (game.numRounds() - game.getRound() >= 0) {
             game.playRound();
         }
     }
