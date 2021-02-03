@@ -2,11 +2,27 @@ package com.company;
 
 public abstract class Animal {
     protected String name;
-    protected int sex;
+    protected String sex;
     protected int health;
+    protected String type;
+
+    public Animal(String name, String sex, String type) {
+        this.name = name;
+        this.sex = sex;
+        this.type = type;
+        this.health = 100;
+    }
 
     public String getName() {
         return name;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getHealth() {

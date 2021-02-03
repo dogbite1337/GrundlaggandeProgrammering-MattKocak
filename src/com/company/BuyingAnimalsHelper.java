@@ -21,7 +21,7 @@ public class BuyingAnimalsHelper {
 
             if (sex != 3) {
                 String name = getAnimalName(player, "elephant");
-                player.buyElephant(name, sex);
+                player.buyElephant(name, (sex == 1) ? "Male" : "Female");
                 System.out.println("\nCongratulations, you just bought " + name + " the elephant!");
                 return 1;
             }
@@ -35,7 +35,7 @@ public class BuyingAnimalsHelper {
 
             if (sex != 3) {
                 String name = getAnimalName(player, "buffalo");
-                player.buyBuffalo(name, sex);
+                player.buyBuffalo(name, (sex == 1) ? "Male" : "Female");
                 System.out.println("\nCongratulations, you just bought " + name + " the buffalo!");
                 return 1;
             }
@@ -49,7 +49,7 @@ public class BuyingAnimalsHelper {
 
             if (sex != 3) {
                 String name = getAnimalName(player, "boar");
-                player.buyBoar(name, sex);
+                player.buyBoar(name, (sex == 1) ? "Male" : "Female");
                 System.out.println("\nCongratulations, you just bought " + name + " the boar!");
                 return 1;
             }
@@ -63,7 +63,7 @@ public class BuyingAnimalsHelper {
 
             if (sex != 3) {
                 String name = getAnimalName(player,"hare");
-                player.buyHare(name, sex);
+                player.buyHare(name, (sex == 1) ? "Male" : "Female");
                 System.out.println("\nCongratulations, you just bought " + name + " the hare!");
                 return 1;
             }
@@ -77,7 +77,7 @@ public class BuyingAnimalsHelper {
 
             if (sex != 3) {
                 String name = getAnimalName(player,"mouse");
-                player.buyMouse(name, sex);
+                player.buyMouse(name, (sex == 1) ? "Male" : "Female");
                 System.out.println("\nCongratulations, you just bought " + name + " the mouse!");
                 return 1;
             }
