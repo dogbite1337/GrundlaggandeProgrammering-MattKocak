@@ -105,7 +105,7 @@ public class BuyingAnimalsHelper {
         System.out.println("3) Back to previous menu");
     }
 
-    private static String getAnimalName(Player player, String animal) {
+    public static String getAnimalName(Player player, String animal) {
         String name = "";
 
         do {

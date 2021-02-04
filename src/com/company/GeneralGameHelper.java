@@ -137,6 +137,10 @@ public class GeneralGameHelper {
         return number;
     }
 
+    public static void clear() {
+        System.out.print("\r\n".repeat(50));
+    }
+
     private static void quit() {
         Scanner scan = new Scanner(System.in);
 

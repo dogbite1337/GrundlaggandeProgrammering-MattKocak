@@ -3,7 +3,7 @@ package com.company;
 public class Mouse extends Animal {
     public static final int cost = 50;
 
-    public Mouse(String name, String sex, String type) {
-        super(name, sex, type);
+    public Mouse(String name, String sex, String type, String pluralType) {
+        super(name, sex, type, pluralType);
     }
 }

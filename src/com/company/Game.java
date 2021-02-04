@@ -88,12 +88,12 @@ public class Game {
                         break;
                     case 3:
                         doneWithTurn = this.getFeedingSelection(players.get(i));
-                        break;/*
-                    case 4:
-                        this.getMatingSelection(players.get(i));
                         break;
+                    case 4:
+                        doneWithTurn = this.getMatingSelection(players.get(i));
+                        break;/*
                     case 5:
-                        this.getSellingSelection(players.get(i));
+                        doneWithTurn = this.getSellingSelection(players.get(i));
                         break;*/
                     default:
                         return;
@@ -210,6 +210,28 @@ public class Game {
         } while (selection < 4);
 
         if (selection == 4) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    private int getMatingSelection(Player player) {
+        int selection;
+        int mated = 0;
+
+        do {
+            MatingHelper.printMatingMenu();
+
+            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 6);
+
+            if (selection > 0 && selection < 6) {
+                mated = MatingHelper.mateAnimals(player, selection);
+            }
+
+        } while (selection < 6 && mated == 0);
+
+        if (selection == 6) {
             return 0;
         } else {
             return 1;

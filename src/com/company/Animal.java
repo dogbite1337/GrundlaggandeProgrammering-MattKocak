@@ -3,13 +3,15 @@ package com.company;
 public abstract class Animal {
     protected String name;
     protected String sex;
-    protected int health;
     protected String type;
+    protected String pluralType;
+    protected int health;
 
-    public Animal(String name, String sex, String type) {
+    public Animal(String name, String sex, String type, String pluralType) {
         this.name = name;
         this.sex = sex;
         this.type = type;
+        this.pluralType = pluralType;
         this.health = 100;
     }
 
@@ -23,6 +25,10 @@ public abstract class Animal {
 
     public String getType() {
         return type;
+    }
+
+    public String getPluralType() {
+        return pluralType;
     }
 
     public int getHealth() {

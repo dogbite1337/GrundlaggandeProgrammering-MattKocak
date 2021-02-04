@@ -73,54 +73,114 @@ public class Player {
         return pellets;
     }
 
-    public void buyElephant(String name, String sex) {
+    public int numMaleElephants() {
+        return maleElephant.size();
+    }
+
+    public int numFemaleElephants() {
+        return femaleElephant.size();
+    }
+
+    public int numMaleBuffaloes() {
+        return maleBuffalo.size();
+    }
+
+    public int numFemaleBuffaloes() {
+        return femaleBuffalo.size();
+    }
+
+    public int numMaleBoars() {
+        return maleBoar.size();
+    }
+
+    public int numFemaleBoars() {
+        return femaleBoar.size();
+    }
+
+    public int numMaleHares() {
+        return maleHare.size();
+    }
+
+    public int numFemaleHares() {
+        return femaleHare.size();
+    }
+
+    public int numMaleMice() {
+        return maleMouse.size();
+    }
+
+    public int numFemaleMice() {
+        return femaleMouse.size();
+    }
+
+    public Animal buyElephant(String name, String sex) {
+        Elephant e = new Elephant(name, sex, "Elephant", "Elephants");
+
         if (sex.equals("Male")) {
-            maleElephant.add(new Elephant(name, sex, "Elephant"));
+            maleElephant.add(e);
         } else {
-            femaleElephant.add(new Elephant(name, sex, "Elephant"));
+            femaleElephant.add(e);
         }
 
         this.money -= Elephant.cost;
+
+        return e;
     }
 
-    public void buyBuffalo(String name, String sex) {
+    public Animal buyBuffalo(String name, String sex) {
+        Buffalo b = new Buffalo(name, sex, "Buffalo", "Buffaloes");
+
         if (sex.equals("Male")) {
-            maleBuffalo.add(new Buffalo(name, sex, "Buffalo"));
+            maleBuffalo.add(b);
         } else {
-            femaleBuffalo.add(new Buffalo(name, sex, "Buffalo"));
+            femaleBuffalo.add(b);
         }
 
         this.money -= Buffalo.cost;
+
+        return b;
     }
 
-    public void buyBoar(String name, String sex) {
+    public Animal buyBoar(String name, String sex) {
+        Boar b = new Boar(name, sex, "Boar", "Boars");
+
         if (sex.equals("Male")) {
-            maleBoar.add(new Boar(name, sex, "Boar"));
+            maleBoar.add(b);
         } else {
-            femaleBoar.add(new Boar(name, sex, "Boar"));
+            femaleBoar.add(b);
         }
 
         this.money -= Boar.cost;
+
+        return b;
     }
 
-    public void buyHare(String name, String sex) {
+    public Animal buyHare(String name, String sex) {
+        Hare h = new Hare(name, sex, "Hare", "Hares");
+
         if (sex.equals("Male")) {
-            maleHare.add(new Hare(name, sex, "Hare"));
+            maleHare.add(h);
         } else {
-            femaleHare.add(new Hare(name, sex, "Hare"));
+            femaleHare.add(h);
         }
 
         this.money -= Hare.cost;
+
+        return h;
     }
 
-    public void buyMouse(String name, String sex) {
+    public Animal buyMouse(String name, String sex) {
+        Mouse m = new Mouse(name, sex, "Mouse", "Mice");
+
         if (sex.equals("Male")) {
-            maleMouse.add(new Mouse(name, sex, "Mouse"));
+            maleMouse.add(m);
         } else {
-            femaleMouse.add(new Mouse(name, sex, "Mouse"));
+            femaleMouse.add(m);
         }
 
         this.money -= Mouse.cost;
+
+        return m;
     }
 
     public void buyHay(int amount) {
