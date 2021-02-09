@@ -73,6 +73,58 @@ public class Player {
         return pellets;
     }
 
+    public ArrayList<Animal> getMaleElephants() {
+        return maleElephant;
+    }
+
+    public ArrayList<Animal> getFemaleElephants() {
+        return femaleElephant;
+    }
+
+    public ArrayList<Animal> getMaleBuffaloes() {
+        return maleBuffalo;
+    }
+
+    public ArrayList<Animal> getFemaleBuffaloes() {
+        return femaleBuffalo;
+    }
+
+    public ArrayList<Animal> getMaleBoars() {
+        return maleBoar;
+    }
+
+    public ArrayList<Animal> getFemaleBoars() {
+        return femaleBoar;
+    }
+
+    public ArrayList<Animal> getMaleHares() {
+        return maleHare;
+    }
+
+    public ArrayList<Animal> getFemaleHares() {
+        return femaleHare;
+    }
+
+    public ArrayList<Animal> getMaleMice() {
+        return maleMouse;
+    }
+
+    public ArrayList<Animal> getFemaleMice() {
+        return femaleMouse;
+    }
+
+    public Animal getAnimal(String name) {
+        for (ArrayList<Animal> l : animalList) {
+            for (Animal a : l) {
+                if (a.getName().equalsIgnoreCase(name)) {
+                    return a;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public int numMaleElephants() {
         return maleElephant.size();
     }
@@ -259,5 +311,19 @@ public class Player {
         }
 
         return list;
+    }
+
+    public int sellAnimal(String name) {
+        for (ArrayList<Animal> l : animalList) {
+            for (Animal a : l) {
+                if (a.getName().equalsIgnoreCase(name)) {
+                    money += (a.getPrice() * ((double) a.getHealth() / 100));
+                    l.remove(a);
+                    return (int) (a.getPrice() * ((double) a.getHealth() / 100));
+                }
+            }
+        }
+
+        return 0;
     }
 }

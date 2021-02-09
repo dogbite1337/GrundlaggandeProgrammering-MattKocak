@@ -5,5 +5,6 @@ public class Elephant extends Animal {
 
     public Elephant(String name, String sex, String type, String pluralType) {
         super(name, sex, type, pluralType);
+        super.price = cost;
     }
 }

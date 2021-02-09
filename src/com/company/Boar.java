@@ -5,5 +5,6 @@ public class Boar extends Animal {
 
     public Boar(String name, String sex, String type, String pluralType) {
         super(name, sex, type, pluralType);
+        super.price = cost;
     }
 }

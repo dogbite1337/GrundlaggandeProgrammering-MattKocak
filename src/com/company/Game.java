@@ -91,10 +91,10 @@ public class Game {
                         break;
                     case 4:
                         doneWithTurn = this.getMatingSelection(players.get(i));
-                        break;/*
+                        break;
                     case 5:
                         doneWithTurn = this.getSellingSelection(players.get(i));
-                        break;*/
+                        break;
                     default:
                         return;
                 }
@@ -105,7 +105,7 @@ public class Game {
     }
 
     private int getMainMenuSelection() {
-        int selection = 0;
+        int selection;
 
         do {
             this.printMainMenu();
@@ -125,7 +125,7 @@ public class Game {
     }
 
     private int getBuyingAnimalsSelection(Player player) {
-        int selection = 0;
+        int selection;
         int canNotGoBack = 0;
 
         do {
@@ -187,7 +187,7 @@ public class Game {
     }
 
     private int getFeedingSelection(Player player) {
-        int selection = 0;
+        int selection;
         int canNotGoBack = 0;
 
         do {
@@ -230,6 +230,36 @@ public class Game {
             }
 
         } while (selection < 6 && mated == 0);
+
+        if (selection == 6) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    private int getSellingSelection(Player player) {
+        int selection;
+        int canNotGoBack = 0;
+
+        do {
+            SellingHelper.printSellingMenu();
+
+            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 7);
+
+            if (selection == 6 && canNotGoBack == 1) {
+                System.out.println("\nYou have already sold an animal. You cannot take other actions besides selling animals this turn.");
+                selection = 0;
+            }
+
+            if (selection > 0 && selection < 6) {
+                int temp = SellingHelper.selectAndSellAnimal(player, selection);
+
+                if (canNotGoBack == 0 && temp == 1) {
+                    canNotGoBack = 1;
+                }
+            }
+        } while (selection < 6);
 
         if (selection == 6) {
             return 0;

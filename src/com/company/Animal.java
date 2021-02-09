@@ -1,6 +1,7 @@
 package com.company;
 
 public abstract class Animal {
+    protected int price;
     protected String name;
     protected String sex;
     protected String type;
@@ -13,6 +14,10 @@ public abstract class Animal {
         this.type = type;
         this.pluralType = pluralType;
         this.health = 100;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public String getName() {

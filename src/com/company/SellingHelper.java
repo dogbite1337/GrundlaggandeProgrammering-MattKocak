@@ -1,0 +1,77 @@
+package com.company;
+
+import java.util.ArrayList;
+
+public class SellingHelper {
+    public static void printSellingMenu() {
+        GeneralGameHelper.clear();
+        System.out.println("1) Sell elephant");
+        System.out.println("2) Sell buffalo");
+        System.out.println("3) Sell boar");
+        System.out.println("4) Sell hare");
+        System.out.println("5) Sell mouse");
+        System.out.println("6) Go back");
+        System.out.println("7) End turn");
+    }
+
+    public static int selectAndSellAnimal(Player player, int selection) {
+        ArrayList<Animal> list = new ArrayList<>();
+
+        String name;
+
+        GeneralGameHelper.clear();
+        System.out.println("You may sell the following " + GeneralGameHelper.getAnimalFromSelection(selection).getPluralType().toLowerCase());
+        System.out.println("Male:");
+
+        do {
+            if (selection == 1) {
+                GeneralGameHelper.printAnimalListWithPrice(player.getMaleElephants());
+                System.out.println("\r\nFemale:");
+                GeneralGameHelper.printAnimalListWithPrice(player.getFemaleElephants());
+                list.addAll(player.getMaleElephants());
+                list.addAll(player.getFemaleElephants());
+            } else if (selection == 2) {
+                GeneralGameHelper.printAnimalListWithPrice(player.getMaleBuffaloes());
+                System.out.println("\r\nFemale:");
+                GeneralGameHelper.printAnimalListWithPrice(player.getFemaleBuffaloes());
+                list.addAll(player.getMaleBuffaloes());
+                list.addAll(player.getFemaleBuffaloes());
+            } else if (selection == 3) {
+                GeneralGameHelper.printAnimalListWithPrice(player.getMaleBoars());
+                System.out.println("\r\nFemale:");
+                GeneralGameHelper.printAnimalListWithPrice(player.getFemaleBoars());
+                list.addAll(player.getMaleBoars());
+                list.addAll(player.getFemaleBoars());
+            } else if (selection == 4) {
+                GeneralGameHelper.printAnimalListWithPrice(player.getMaleHares());
+                System.out.println("\r\nFemale:");
+                GeneralGameHelper.printAnimalListWithPrice(player.getFemaleHares());
+                list.addAll(player.getMaleHares());
+                list.addAll(player.getFemaleHares());
+            } else {
+                GeneralGameHelper.printAnimalListWithPrice(player.getMaleMice());
+                System.out.println("\r\nFemale:");
+                GeneralGameHelper.printAnimalListWithPrice(player.getFemaleMice());
+                list.addAll(player.getMaleMice());
+                list.addAll(player.getFemaleMice());
+            }
+
+            name = GeneralGameHelper.getString("\r\nType the name of the animal that you would like to sell: ");
+
+            if (name.isEmpty()) {
+                return 0;
+            }
+
+            if (!GeneralGameHelper.isAnimalInList(name, list)) {
+                System.out.println("\r\n" + name + " is not a listed animal. Please choose an animal that is listed");
+                name = "";
+            }
+        } while (name.isEmpty());
+
+        GeneralGameHelper.clear();
+        System.out.print(name + " was sold for " + player.sellAnimal(name) + " coins");
+        GeneralGameHelper.getString("");
+
+        return 1;
+    }
+}
