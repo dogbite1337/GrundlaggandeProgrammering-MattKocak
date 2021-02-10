@@ -29,7 +29,7 @@ public class FeedingHelper {
     public static int selectAndFeedAnimal(Player player, int selection) {
         List<Animal> list = new ArrayList<>();
 
-        String name = "";
+        String name;
         Animal animal = null;
 
         do {

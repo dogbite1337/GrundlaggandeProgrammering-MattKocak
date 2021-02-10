@@ -38,44 +38,32 @@ public class MatingHelper {
             System.out.println("Male: " + player.numMaleElephants());
             System.out.println("Female: " + player.numFemaleElephants());
 
-            if (player.numMaleElephants() > 0 && player.numFemaleElephants() > 0) {
-                return true;
-            }
+            return player.numMaleElephants() > 0 && player.numFemaleElephants() > 0;
         } else if (selection == 2) {
             System.out.println("Buffaloes:");
             System.out.println("Male: " + player.numMaleBuffaloes());
             System.out.println("Female: " + player.numFemaleBuffaloes());
 
-            if (player.numMaleBuffaloes() > 0 && player.numFemaleBuffaloes() > 0) {
-                return true;
-            }
+            return player.numMaleBuffaloes() > 0 && player.numFemaleBuffaloes() > 0;
         } else if (selection == 3) {
             System.out.println("Boars:");
             System.out.println("Male: " + player.numMaleBoars());
             System.out.println("Female: " + player.numFemaleBoars());
 
-            if (player.numMaleBoars() > 0 && player.numFemaleBoars() > 0) {
-                return true;
-            }
+            return player.numMaleBoars() > 0 && player.numFemaleBoars() > 0;
         } else if (selection == 4) {
             System.out.println("Hares:");
             System.out.println("Male: " + player.numMaleHares());
             System.out.println("Female: " + player.numFemaleHares());
 
-            if (player.numMaleHares() > 0 && player.numFemaleHares() > 0) {
-                return true;
-            }
+            return player.numMaleHares() > 0 && player.numFemaleHares() > 0;
         } else {
             System.out.println("Mice:");
             System.out.println("Male: " + player.numMaleMice());
             System.out.println("Female: " + player.numFemaleMice());
 
-            if (player.numMaleMice() > 0 && player.numFemaleMice() > 0) {
-                return true;
-            }
+            return player.numMaleMice() > 0 && player.numFemaleMice() > 0;
         }
-
-        return false;
     }
 
     private static void attemptMatingAnimals(Player player, int selection) {

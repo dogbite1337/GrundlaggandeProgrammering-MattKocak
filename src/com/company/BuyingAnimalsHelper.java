@@ -89,7 +89,7 @@ public class BuyingAnimalsHelper {
     }
 
     private static int getSex(String animal) {
-        int selection = 0;
+        int selection;
 
         do {
             printGetSexMenu();
@@ -106,7 +106,7 @@ public class BuyingAnimalsHelper {
     }
 
     public static String getAnimalName(Player player, String animal) {
-        String name = "";
+        String name;
 
         do {
             name = GeneralGameHelper.getNonEmptyString("\nChoose " + animal + "'s name: ");

@@ -3,20 +3,20 @@ import java.util.*;
 
 public class Player {
     private static final int STARTMONEY = 1000;
-    private String name;
+    private final String name;
     private int money;
-    private ArrayList<ArrayList<Animal>> animalList;
-    private ArrayList<Animal> maleElephant;
-    private ArrayList<Animal> femaleElephant;
-    private ArrayList<Animal> maleBuffalo;
-    private ArrayList<Animal> femaleBuffalo;
-    private ArrayList<Animal> maleBoar;
-    private ArrayList<Animal> femaleBoar;
-    private ArrayList<Animal> maleHare;
-    private ArrayList<Animal> femaleHare;
-    private ArrayList<Animal> maleMouse;
-    private ArrayList<Animal> femaleMouse;
-    private ArrayList<Animal> lastRoundsDeadAnimals;
+    private final ArrayList<ArrayList<Animal>> animalList;
+    private final ArrayList<Animal> maleElephant;
+    private final ArrayList<Animal> femaleElephant;
+    private final ArrayList<Animal> maleBuffalo;
+    private final ArrayList<Animal> femaleBuffalo;
+    private final ArrayList<Animal> maleBoar;
+    private final ArrayList<Animal> femaleBoar;
+    private final ArrayList<Animal> maleHare;
+    private final ArrayList<Animal> femaleHare;
+    private final ArrayList<Animal> maleMouse;
+    private final ArrayList<Animal> femaleMouse;
+    private final ArrayList<Animal> lastRoundsDeadAnimals;
     private int hay;
     private int soy;
     private int pellets;
@@ -57,10 +57,6 @@ public class Player {
 
     public int getMoney() {
         return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
     }
 
     public int getHay() {
@@ -304,7 +300,6 @@ public class Player {
     }
 
     public void loseHealth() {
-        ArrayList<Animal> list = new ArrayList<>();
         Random rand = new Random();
         lastRoundsDeadAnimals.clear();
 
@@ -343,10 +338,6 @@ public class Player {
     }
 
     public boolean hasFood() {
-        if (hay != 0 || soy != 0 || pellets != 0) {
-            return true;
-        }
-
-        return false;
+        return hay != 0 || soy != 0 || pellets != 0;
     }
 }

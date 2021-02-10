@@ -179,12 +179,12 @@ public class GeneralGameHelper {
                 if (!player.getMaleElephants().isEmpty()) {
                     System.out.println("Male:");
                     printAnimalListWithHealth(player.getMaleElephants());
-                    System.out.println("");
+                    System.out.println();
                 }
                 if (!player.getFemaleElephants().isEmpty()) {
                     System.out.println("Female:");
                     printAnimalListWithHealth(player.getFemaleElephants());
-                    System.out.println("");
+                    System.out.println();
                 }
             }
 
@@ -193,12 +193,12 @@ public class GeneralGameHelper {
                 if (!player.getMaleBuffaloes().isEmpty()) {
                     System.out.println("Male:");
                     printAnimalListWithHealth(player.getMaleBuffaloes());
-                    System.out.println("");
+                    System.out.println();
                 }
                 if (!player.getFemaleBuffaloes().isEmpty()) {
                     System.out.println("Female:");
                     printAnimalListWithHealth(player.getFemaleBuffaloes());
-                    System.out.println("");
+                    System.out.println();
                 }
             }
 
@@ -207,12 +207,12 @@ public class GeneralGameHelper {
                 if (!player.getMaleBoars().isEmpty()) {
                     System.out.println("Male:");
                     printAnimalListWithHealth(player.getMaleBoars());
-                    System.out.println("");
+                    System.out.println();
                 }
                 if (!player.getFemaleBoars().isEmpty()) {
                     System.out.println("Female:");
                     printAnimalListWithHealth(player.getFemaleBoars());
-                    System.out.println("");
+                    System.out.println();
                 }
             }
 
@@ -221,12 +221,12 @@ public class GeneralGameHelper {
                 if (!player.getMaleHares().isEmpty()) {
                     System.out.println("Male:");
                     printAnimalListWithHealth(player.getMaleHares());
-                    System.out.println("");
+                    System.out.println();
                 }
                 if (!player.getFemaleHares().isEmpty()) {
                     System.out.println("Female:");
                     printAnimalListWithHealth(player.getFemaleHares());
-                    System.out.println("");
+                    System.out.println();
                 }
             }
 
@@ -235,12 +235,12 @@ public class GeneralGameHelper {
                 if (!player.getMaleMice().isEmpty()) {
                     System.out.println("Male:");
                     printAnimalListWithHealth(player.getMaleMice());
-                    System.out.println("");
+                    System.out.println();
                 }
                 if (!player.getFemaleMice().isEmpty()) {
                     System.out.println("Female:");
                     printAnimalListWithHealth(player.getFemaleMice());
-                    System.out.println("");
+                    System.out.println();
                 }
             }
         } else {
