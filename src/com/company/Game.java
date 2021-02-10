@@ -69,13 +69,27 @@ public class Game {
 
     public void playRound() {
         for (Player player : players) {
+            if (!player.isPlaying()) {
+                continue;
+            }
+
+            if (this.isPlayerOut(player)) {
+                player.noLongerPlaying();
+                GeneralGameHelper.clear();
+                System.out.println("Round " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
+                System.out.println("\r\nYou have no animals and don't have enough money to buy an animal");
+                System.out.print("You will be skipped in the remaining rounds. Your final total is " + player.getMoney() + " coins");
+                GeneralGameHelper.getString("");
+                continue;
+            }
+
             if (round != 1) {
                 GeneralGameHelper.printPlayerSummary(player);
                 GeneralGameHelper.getString("");
             }
 
             GeneralGameHelper.clear();
-            System.out.println("\r\nRound " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
+            System.out.println("Round " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
             System.out.println("\r\nPlease select an action below. You are only able to complete one of the actions per round");
             System.out.println("Printing your player summary does not count as an action");
 
@@ -102,8 +116,10 @@ public class Game {
                         break;
                     case 6:
                         GeneralGameHelper.printPlayerSummary(player);
+                        GeneralGameHelper.getString("");
+                        break;
                     default:
-                        return;
+                        break;
                 }
                 GeneralGameHelper.clear();
             }
@@ -111,6 +127,10 @@ public class Game {
         }
 
         this.round++;
+    }
+
+    private boolean isPlayerOut(Player player) {
+        return !player.hasLiveAnimals() && player.getMoney() < Mouse.cost;
     }
 
     private int getMainMenuSelection() {
@@ -276,5 +296,59 @@ public class Game {
         } else {
             return 1;
         }
+    }
+
+    public void scoreGame() {
+        GeneralGameHelper.clear();
+        System.out.println("You've played all " + totalRounds + " of " + totalRounds + " rounds");
+        System.out.println("The animals for each player will now be liquidated and added to the player's current coin total");
+        System.out.print("And the final score is...");
+        GeneralGameHelper.getString("");
+
+        this.determinePlayerScoreAndSort();
+
+        GeneralGameHelper.clear();
+
+        int place = 1;
+
+        while (!players.isEmpty()) {
+            System.out.print("\r\n" + GeneralGameHelper.ordinalString(place) + " place: " + players.get(0).getName());
+
+            while (players.size() > 1) {
+                if (players.get(1).getMoney() == players.get(0).getMoney()) {
+                    System.out.print(", " + players.get(1).getName());
+                    players.remove(0);
+                    place++;
+                    continue;
+                }
+                break;
+            }
+
+            System.out.print(" (" + players.remove(0).getMoney() + " coins)");
+            place++;
+        }
+
+        GeneralGameHelper.getString("");
+    }
+
+    private void determinePlayerScoreAndSort() {
+        for (Player player : players) {
+            player.calculateFinalScore();
+        }
+
+        for (int i = 0; i < players.size(); i++) {
+            for (int j = i + 1; j < players.size(); j++) {
+                if (players.get(j).getMoney() > players.get(i).getMoney()) {
+                    Player temp = players.get(i);
+                    players.set(i, players.get(j));
+                    players.set(j, temp);
+                }
+            }
+        }
+    }
+
+    public static String lastDialog() {
+        GeneralGameHelper.clear();
+        return GeneralGameHelper.getString("Would you like to play another game (Y/N)? ");
     }
 }

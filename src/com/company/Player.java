@@ -20,6 +20,7 @@ public class Player {
     private int hay;
     private int soy;
     private int pellets;
+    private boolean playing;
 
     public Player(String name) {
         this.name = name;
@@ -49,6 +50,7 @@ public class Player {
         this.hay = 0;
         this.soy = 0;
         this.pellets = 0;
+        this.playing = true;
     }
 
     public String getName() {
@@ -113,6 +115,14 @@ public class Player {
 
     public ArrayList<Animal> getLastRoundsDeadAnimals() {
         return lastRoundsDeadAnimals;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void noLongerPlaying() {
+        playing = false;
     }
 
     public Animal getAnimal(String name) {
@@ -304,10 +314,10 @@ public class Player {
         lastRoundsDeadAnimals.clear();
 
         for (ArrayList<Animal> l : animalList) {
-            for (Animal a : l) {
-                if (a.decreaseHealth(rand.nextInt(21) + 10)) {
-                    l.remove(a);
-                    lastRoundsDeadAnimals.add(a);
+            for (int i = 0; i < l.size(); i++) {
+                if (l.get(i).decreaseHealth(rand.nextInt(21) + 10)) {
+                    lastRoundsDeadAnimals.add(l.remove(i));
+                    i--;
                 }
             }
         }
@@ -339,5 +349,14 @@ public class Player {
 
     public boolean hasFood() {
         return hay != 0 || soy != 0 || pellets != 0;
+    }
+
+    public void calculateFinalScore() {
+        for (ArrayList<Animal> l : animalList) {
+            while (!l.isEmpty()) {
+                money += (l.get(0).getPrice() * ((double) l.get(0).getHealth() / 100));
+                l.remove(0);
+            }
+        }
     }
 }
