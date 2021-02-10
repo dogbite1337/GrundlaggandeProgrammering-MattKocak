@@ -6,7 +6,7 @@ public class Game {
     private int totalRounds;
     private int round;
     private int numPlayers;
-    private LinkedList<Player> players;
+    private final LinkedList<Player> players;
 
     public Game () {
         System.out.println("Welcome to Animal Farm!");
@@ -39,7 +39,7 @@ public class Game {
                 input = GeneralGameHelper.getNonEmptyStringQ("Player " + i + " name: ");
 
                 for (Player p : players) {
-                    if (p.getName().toLowerCase().equals(input.toLowerCase())) {
+                    if (p.getName().equalsIgnoreCase(input)) {
                         System.out.println("\n" + input + " was already used by another player. Please choose another name");
                         input = "";
                         break;
@@ -68,11 +68,16 @@ public class Game {
     }
 
     public void playRound() {
-        for (int i = 0; i < players.size(); i++) {
-            System.out.println("\nRound " + round + " of " + totalRounds + ", " + players.get(i).getName() + "'s turn");
-            System.out.println("\nPlease select an action below. You are only able to complete one of the actions per round");
+        for (Player player : players) {
+            if (round != 1) {
+                GeneralGameHelper.printPlayerSummary(player);
+                GeneralGameHelper.getString("");
+            }
 
-            players.get(i).loseHealth();
+            GeneralGameHelper.clear();
+            System.out.println("\r\nRound " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
+            System.out.println("\r\nPlease select an action below. You are only able to complete one of the actions per round");
+            System.out.println("Printing your player summary does not count as an action");
 
             int doneWithTurn = 0;
 
@@ -81,24 +86,28 @@ public class Game {
 
                 switch (selection) {
                     case 1:
-                        doneWithTurn = this.getBuyingAnimalsSelection(players.get(i));
+                        doneWithTurn = this.getBuyingAnimalsSelection(player);
                         break;
                     case 2:
-                        doneWithTurn = this.getBuyingFoodSelection(players.get(i));
+                        doneWithTurn = this.getBuyingFoodSelection(player);
                         break;
                     case 3:
-                        doneWithTurn = this.getFeedingSelection(players.get(i));
+                        doneWithTurn = this.getFeedingSelection(player);
                         break;
                     case 4:
-                        doneWithTurn = this.getMatingSelection(players.get(i));
+                        doneWithTurn = this.getMatingSelection(player);
                         break;
                     case 5:
-                        doneWithTurn = this.getSellingSelection(players.get(i));
+                        doneWithTurn = this.getSellingSelection(player);
                         break;
+                    case 6:
+                        GeneralGameHelper.printPlayerSummary(player);
                     default:
                         return;
                 }
+                GeneralGameHelper.clear();
             }
+            player.loseHealth();
         }
 
         this.round++;
@@ -109,7 +118,7 @@ public class Game {
 
         do {
             this.printMainMenu();
-            selection = GeneralGameHelper.getPositiveNumberInRangeQ("\nWhat would you like to do: ", 1, 5);
+            selection = GeneralGameHelper.getPositiveNumberInRangeQ("\nWhat would you like to do: ", 1, 6);
         } while (selection == 0);
 
         return selection;
@@ -121,6 +130,7 @@ public class Game {
         System.out.println("3) Feed your animals");
         System.out.println("4) Mate a pair of animals");
         System.out.println("5) Sell animals");
+        System.out.println("6) Print player summary");
         System.out.println("QUIT) Quit the game");
     }
 

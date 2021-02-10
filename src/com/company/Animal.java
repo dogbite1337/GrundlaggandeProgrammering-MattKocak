@@ -7,6 +7,7 @@ public abstract class Animal {
     protected String type;
     protected String pluralType;
     protected int health;
+    protected int previousHealth;
 
     public Animal(String name, String sex, String type, String pluralType) {
         this.name = name;
@@ -14,6 +15,7 @@ public abstract class Animal {
         this.type = type;
         this.pluralType = pluralType;
         this.health = 100;
+        this.previousHealth = 100;
     }
 
     public int getPrice() {
@@ -40,17 +42,18 @@ public abstract class Animal {
         return health;
     }
 
+    public int getPreviousHealth() {
+        return previousHealth;
+    }
+
     public void increaseHealth(int inc) {
         health = Math.min(health + inc, 100);
     }
 
     public boolean decreaseHealth(int dec) {
+        previousHealth = health;
         health = Math.max(health - dec, 0);
 
-        if (health == 0) {
-            return true;
-        }
-
-        return false;
+        return health == 0;
     }
 }

@@ -16,6 +16,7 @@ public class Player {
     private ArrayList<Animal> femaleHare;
     private ArrayList<Animal> maleMouse;
     private ArrayList<Animal> femaleMouse;
+    private ArrayList<Animal> lastRoundsDeadAnimals;
     private int hay;
     private int soy;
     private int pellets;
@@ -44,6 +45,7 @@ public class Player {
         animalList.add(maleMouse);
         femaleMouse = new ArrayList<>();
         animalList.add(femaleMouse);
+        lastRoundsDeadAnimals = new ArrayList<>();
         this.hay = 0;
         this.soy = 0;
         this.pellets = 0;
@@ -111,6 +113,10 @@ public class Player {
 
     public ArrayList<Animal> getFemaleMice() {
         return femaleMouse;
+    }
+
+    public ArrayList<Animal> getLastRoundsDeadAnimals() {
+        return lastRoundsDeadAnimals;
     }
 
     public Animal getAnimal(String name) {
@@ -297,20 +303,19 @@ public class Player {
         animal.increaseHealth(10);
     }
 
-    public ArrayList<Animal> loseHealth() {
+    public void loseHealth() {
         ArrayList<Animal> list = new ArrayList<>();
         Random rand = new Random();
+        lastRoundsDeadAnimals.clear();
 
         for (ArrayList<Animal> l : animalList) {
             for (Animal a : l) {
                 if (a.decreaseHealth(rand.nextInt(21) + 10)) {
                     l.remove(a);
-                    list.add(a);
+                    lastRoundsDeadAnimals.add(a);
                 }
             }
         }
-
-        return list;
     }
 
     public int sellAnimal(String name) {
@@ -325,5 +330,23 @@ public class Player {
         }
 
         return 0;
+    }
+
+    public boolean hasLiveAnimals() {
+        for (ArrayList<Animal> l : animalList) {
+            if (!l.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean hasFood() {
+        if (hay != 0 || soy != 0 || pellets != 0) {
+            return true;
+        }
+
+        return false;
     }
 }

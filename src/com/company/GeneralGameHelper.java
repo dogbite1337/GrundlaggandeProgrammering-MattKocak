@@ -149,6 +149,113 @@ public class GeneralGameHelper {
         }
     }
 
+    public static void printAnimalListWithSexAndType(ArrayList<Animal> list) {
+        for (Animal a : list) {
+            System.out.println(a.getName() + " the " + a.getSex().toLowerCase() + " " + a.getType().toLowerCase());
+        }
+    }
+
+    public static void printAnimalListWithHealth(ArrayList<Animal> list) {
+        for (Animal a : list) {
+            System.out.println(a.getName() + " - " + a.getHealth() + " (lost " + (a.getPreviousHealth() - a.getHealth()) + " health)");
+        }
+    }
+
+    public static void printPlayerSummary(Player player) {
+        clear();
+        System.out.println(player.getName() + "'s player summary\r\n");
+
+        if (player.getLastRoundsDeadAnimals().isEmpty()) {
+            System.out.println("No animals died last round");
+        } else {
+            System.out.println("Animals that have died since last round:");
+            printAnimalListWithSexAndType(player.getLastRoundsDeadAnimals());
+        }
+
+        if (player.hasLiveAnimals()) {
+            System.out.println("\r\nSummary of animals that you own");
+            if (!player.getMaleElephants().isEmpty() || !player.getFemaleElephants().isEmpty()) {
+                System.out.println("Elephants");
+                if (!player.getMaleElephants().isEmpty()) {
+                    System.out.println("Male:");
+                    printAnimalListWithHealth(player.getMaleElephants());
+                    System.out.println("");
+                }
+                if (!player.getFemaleElephants().isEmpty()) {
+                    System.out.println("Female:");
+                    printAnimalListWithHealth(player.getFemaleElephants());
+                    System.out.println("");
+                }
+            }
+
+            if (!player.getMaleBuffaloes().isEmpty() || !player.getFemaleBuffaloes().isEmpty()) {
+                System.out.println("Buffaloes");
+                if (!player.getMaleBuffaloes().isEmpty()) {
+                    System.out.println("Male:");
+                    printAnimalListWithHealth(player.getMaleBuffaloes());
+                    System.out.println("");
+                }
+                if (!player.getFemaleBuffaloes().isEmpty()) {
+                    System.out.println("Female:");
+                    printAnimalListWithHealth(player.getFemaleBuffaloes());
+                    System.out.println("");
+                }
+            }
+
+            if (!player.getMaleBoars().isEmpty() || !player.getFemaleBoars().isEmpty()) {
+                System.out.println("Boars");
+                if (!player.getMaleBoars().isEmpty()) {
+                    System.out.println("Male:");
+                    printAnimalListWithHealth(player.getMaleBoars());
+                    System.out.println("");
+                }
+                if (!player.getFemaleBoars().isEmpty()) {
+                    System.out.println("Female:");
+                    printAnimalListWithHealth(player.getFemaleBoars());
+                    System.out.println("");
+                }
+            }
+
+            if (!player.getMaleHares().isEmpty() || !player.getFemaleHares().isEmpty()) {
+                System.out.println("Hares");
+                if (!player.getMaleHares().isEmpty()) {
+                    System.out.println("Male:");
+                    printAnimalListWithHealth(player.getMaleHares());
+                    System.out.println("");
+                }
+                if (!player.getFemaleHares().isEmpty()) {
+                    System.out.println("Female:");
+                    printAnimalListWithHealth(player.getFemaleHares());
+                    System.out.println("");
+                }
+            }
+
+            if (!player.getMaleMice().isEmpty() || !player.getFemaleMice().isEmpty()) {
+                System.out.println("Mice");
+                if (!player.getMaleMice().isEmpty()) {
+                    System.out.println("Male:");
+                    printAnimalListWithHealth(player.getMaleMice());
+                    System.out.println("");
+                }
+                if (!player.getFemaleMice().isEmpty()) {
+                    System.out.println("Female:");
+                    printAnimalListWithHealth(player.getFemaleMice());
+                    System.out.println("");
+                }
+            }
+        } else {
+            System.out.println("\r\nYou do not own any animals\r\n");
+        }
+
+        if (player.hasFood()) {
+            System.out.println("You have " + player.getHay() + " bales of hay, " + player.getSoy() + " bushels of soy, and " + player.getPellets() + " bags of pellets\r\n");
+        } else {
+            System.out.println("You have no food\r\n");
+        }
+
+        System.out.print("You have " + player.getMoney() + " coins");
+    }
+
     public static Animal getAnimalFromSelection(int selection) {
         if (selection == 1) {
             return new Elephant("", "Male", "Elephant", "Elephants");
