@@ -1,10 +1,13 @@
-package com.company;
+package com.company.helper;
+
+import com.company.Player;
+import com.company.animal.Animal;
 
 import java.util.*;
 
 public class FeedingHelper {
     public static void printFeedingMenu(Player player) {
-        System.out.print("\nYou have " + player.getMoney() + " coins");
+        System.out.print("You have " + player.getMoney() + " coins");
         if (player.getHay() != 0 || player.getSoy() != 0 || player.getPellets() != 0) {
             System.out.println(" and the following:");
             if (player.getHay() != 0) {
@@ -19,7 +22,7 @@ public class FeedingHelper {
         } else {
             System.out.println();
         }
-        System.out.println("\n1) Feed hay to animal");
+        System.out.println("\r\n1) Feed hay to animal");
         System.out.println("2) Feed soy to animal");
         System.out.println("3) Feed pellets to animal");
         System.out.println("4) Back to main menu");
@@ -33,21 +36,35 @@ public class FeedingHelper {
         Animal animal = null;
 
         do {
-            if (selection == 1) {
-                System.out.println("\nYou may feed hay to the following animals:");
+            GeneralGameHelper.clear();
+
+            if (selection == 1 && player.getHay() > 0) {
+                System.out.println("You may feed hay to the following animals:");
                 list.addAll(player.printUnhealthyAnimals("Elephant"));
                 list.addAll(player.printUnhealthyAnimals("Buffalo"));
-            } else if (selection == 2) {
-                System.out.println("\nYou may feed soy to the following animals:");
+            } else if (selection == 1) {
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You don't have any hay to feed");
+                return 0;
+            } else if (selection == 2 && player.getSoy() > 0) {
+                System.out.println("You may feed soy to the following animals:");
                 list.addAll(player.printUnhealthyAnimals("Buffalo"));
                 list.addAll(player.printUnhealthyAnimals("Boar"));
-            } else {
-                System.out.println("\nYou may feed pellets to the following animals:");
+            } else if (selection == 2) {
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You don't have any soy to feed");
+                return 0;
+            } else if (player.getPellets() > 0) {
+                System.out.println("You may feed pellets to the following animals:");
                 list.addAll(player.printUnhealthyAnimals("Hare"));
                 list.addAll(player.printUnhealthyAnimals("Mouse"));
+            } else {
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You don't have any pellets to feed");
+                return 0;
             }
 
-            name = GeneralGameHelper.getString("\nType the name of the animal that you would like to feed: ");
+            name = GeneralGameHelper.getString("\r\nType the name of the animal that you would like to feed: ");
 
             if (name.isEmpty()) {
                 return 0;
@@ -64,7 +81,8 @@ public class FeedingHelper {
             }
 
             if (!found) {
-                System.out.println("\n" + name + " is not an animal that could be fed. Please choose an animal that is listed");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString(name + " is not an animal that could be fed. Please choose an animal that is listed");
 
                 name = "";
             }
@@ -79,7 +97,8 @@ public class FeedingHelper {
             player.feedPellets(animal);
         }
 
-        System.out.println("\n" + animal.getName() + " now has " + animal.getHealth() + " health");
+        GeneralGameHelper.clear();
+        GeneralGameHelper.getString(animal.getName() + " now has " + animal.getHealth() + " health");
 
         return 1;
     }

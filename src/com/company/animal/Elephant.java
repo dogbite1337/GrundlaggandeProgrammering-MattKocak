@@ -1,4 +1,4 @@
-package com.company;
+package com.company.animal;
 
 public class Elephant extends Animal {
     public static final int cost = 700;

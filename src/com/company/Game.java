@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.animal.Mouse;
+import com.company.helper.*;
+
 import java.util.*;
 
 public class Game {
@@ -10,7 +13,7 @@ public class Game {
 
     public Game () {
         System.out.println("Welcome to Animal Farm!");
-        System.out.println("Enter QUIT to exit game\n");
+        GeneralGameHelper.getString("Press ENTER to continue or type QUIT to exit game\r\n");
         this.players = new LinkedList<>();
         this.round = 1;
     }
@@ -25,10 +28,9 @@ public class Game {
 
     public void getNumPlayers() {
         do {
+            GeneralGameHelper.clear();
             this.numPlayers = GeneralGameHelper.getPositiveNumberInRangeQ("Number of players (1-4): ", 1, 4);
         } while (this.numPlayers == 0);
-
-        System.out.println("\n" + this.numPlayers + " player(s) will be playing this game\n");
     }
 
     public void getPlayerNames() {
@@ -36,11 +38,13 @@ public class Game {
             String input;
 
             do {
+                GeneralGameHelper.clear();
                 input = GeneralGameHelper.getNonEmptyStringQ("Player " + i + " name: ");
 
                 for (Player p : players) {
                     if (p.getName().equalsIgnoreCase(input)) {
-                        System.out.println("\n" + input + " was already used by another player. Please choose another name");
+                        GeneralGameHelper.clear();
+                        GeneralGameHelper.getString(input + " was already used by another player. Please choose another name");
                         input = "";
                         break;
                     }
@@ -50,21 +54,22 @@ public class Game {
             players.add(new Player(input));
         }
 
-        System.out.println("\nThe following player(s) will be playing this game");
+        GeneralGameHelper.clear();
+
+        System.out.println("The following player(s) will be playing this game");
 
         for (Player p : players) {
             System.out.println(p.getName());
         }
 
-        System.out.println("\nEach player will start with " + players.get(0).getMoney() + " coins\n");
+        GeneralGameHelper.getString("\r\nEach player will start with " + players.get(0).getMoney() + " coins");
     }
 
     public void getNumRounds() {
         do {
+            GeneralGameHelper.clear();
             totalRounds = GeneralGameHelper.getPositiveNumberInRangeQ("Number of rounds to play (5-30): ", 5, 30);
         } while (totalRounds == 0);
-
-        System.out.println("\nYou will be playing " + this.round + " rounds");
     }
 
     public void playRound() {
@@ -78,12 +83,12 @@ public class Game {
                 GeneralGameHelper.clear();
                 System.out.println("Round " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
                 System.out.println("\r\nYou have no animals and don't have enough money to buy an animal");
-                System.out.print("You will be skipped in the remaining rounds. Your final total is " + player.getMoney() + " coins");
-                GeneralGameHelper.getString("");
+                GeneralGameHelper.getString("You will be skipped in the remaining rounds. Your final total is " + player.getMoney() + " coins");
                 continue;
             }
 
             if (round != 1) {
+                GeneralGameHelper.clear();
                 GeneralGameHelper.printPlayerSummary(player);
                 GeneralGameHelper.getString("");
             }
@@ -91,7 +96,7 @@ public class Game {
             GeneralGameHelper.clear();
             System.out.println("Round " + round + " of " + totalRounds + ", " + player.getName() + "'s turn");
             System.out.println("\r\nPlease select an action below. You are only able to complete one of the actions per round");
-            System.out.println("Printing your player summary does not count as an action");
+            System.out.println("Printing your player summary does not count as an action\r\n");
 
             int doneWithTurn = 0;
 
@@ -115,6 +120,7 @@ public class Game {
                         doneWithTurn = this.getSellingSelection(player);
                         break;
                     case 6:
+                        GeneralGameHelper.clear();
                         GeneralGameHelper.printPlayerSummary(player);
                         GeneralGameHelper.getString("");
                         break;
@@ -138,14 +144,14 @@ public class Game {
 
         do {
             this.printMainMenu();
-            selection = GeneralGameHelper.getPositiveNumberInRangeQ("\nWhat would you like to do: ", 1, 6);
+            selection = GeneralGameHelper.getPositiveNumberInRangeQ("\r\nWhat would you like to do: ", 1, 6);
         } while (selection == 0);
 
         return selection;
     }
 
     private void printMainMenu() {
-        System.out.println("\n1) Buy animals");
+        System.out.println("1) Buy animals");
         System.out.println("2) Buy food");
         System.out.println("3) Feed your animals");
         System.out.println("4) Mate a pair of animals");
@@ -159,12 +165,14 @@ public class Game {
         int canNotGoBack = 0;
 
         do {
+            GeneralGameHelper.clear();
             BuyingAnimalsHelper.printBuyingAnimalsMenu(player);
 
-            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 7);
+            selection = GeneralGameHelper.getPositiveNumberInRange("\r\nWhat would you like to do: ", 1, 7);
 
             if (selection == 6 && canNotGoBack == 1) {
-                System.out.println("\nYou have already bought an animal. You cannot take other actions besides buying animals this turn.");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You have already bought an animal. You cannot take other actions besides buying animals this turn");
                 selection = 0;
             }
 
@@ -190,12 +198,14 @@ public class Game {
         int canNotGoBack = 0;
 
         do {
+            GeneralGameHelper.clear();
             BuyingFoodHelper.printBuyingFoodMenu(player);
 
-            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 5);
+            selection = GeneralGameHelper.getPositiveNumberInRange("\r\nWhat would you like to do: ", 1, 5);
 
             if (selection == 4 && canNotGoBack == 1) {
-                System.out.println("\nYou have already bought food. You cannot take other actions besides buying food this turn.");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You have already bought food. You cannot take other actions besides buying food this turn");
                 selection = 0;
             }
 
@@ -221,12 +231,14 @@ public class Game {
         int canNotGoBack = 0;
 
         do {
+            GeneralGameHelper.clear();
             FeedingHelper.printFeedingMenu(player);
 
-            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 5);
+            selection = GeneralGameHelper.getPositiveNumberInRange("\r\nWhat would you like to do: ", 1, 5);
 
             if (selection == 4 && canNotGoBack == 1) {
-                System.out.println("\nYou have already fed an animal. You cannot take other actions besides feeding animals this turn.");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You have already fed an animal. You cannot take other actions besides feeding animals this turn");
                 selection = 0;
             }
 
@@ -251,9 +263,10 @@ public class Game {
         int mated = 0;
 
         do {
+            GeneralGameHelper.clear();
             MatingHelper.printMatingMenu();
 
-            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 6);
+            selection = GeneralGameHelper.getPositiveNumberInRange("\r\nWhat would you like to do: ", 1, 6);
 
             if (selection > 0 && selection < 6) {
                 mated = MatingHelper.mateAnimals(player, selection);
@@ -273,12 +286,14 @@ public class Game {
         int canNotGoBack = 0;
 
         do {
+            GeneralGameHelper.clear();
             SellingHelper.printSellingMenu();
 
-            selection = GeneralGameHelper.getPositiveNumberInRange("\nWhat would you like to do: ", 1, 7);
+            selection = GeneralGameHelper.getPositiveNumberInRange("\r\nWhat would you like to do: ", 1, 7);
 
             if (selection == 6 && canNotGoBack == 1) {
-                System.out.println("\nYou have already sold an animal. You cannot take other actions besides selling animals this turn.");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString("You have already sold an animal. You cannot take other actions besides selling animals this turn");
                 selection = 0;
             }
 
@@ -302,8 +317,7 @@ public class Game {
         GeneralGameHelper.clear();
         System.out.println("You've played all " + totalRounds + " of " + totalRounds + " rounds");
         System.out.println("The animals for each player will now be liquidated and added to the player's current coin total");
-        System.out.print("And the final score is...");
-        GeneralGameHelper.getString("");
+        GeneralGameHelper.getString("And the final score is...");
 
         this.determinePlayerScoreAndSort();
 

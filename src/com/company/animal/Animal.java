@@ -1,4 +1,4 @@
-package com.company;
+package com.company.animal;
 
 public abstract class Animal {
     protected int price;

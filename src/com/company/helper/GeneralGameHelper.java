@@ -1,4 +1,10 @@
-package com.company;
+package com.company.helper;
+
+import com.company.Player;
+import com.company.animal.Animal;
+import com.company.animal.Elephant;
+import com.company.animal.Hare;
+import com.company.animal.Mouse;
 
 import java.util.*;
 
@@ -19,8 +25,10 @@ public class GeneralGameHelper {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("\nPlease select a valid menu option between " + min + " and " + max);
-            selection = 0;
+            clear();
+            System.out.print("Please select a valid menu option between " + min + " and " + max);
+            getString("");
+            return 0;
         }
 
         return selection;
@@ -45,7 +53,9 @@ public class GeneralGameHelper {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("\nPlease select a valid menu option between " + min + " and " + max);
+            clear();
+            System.out.print("Please select a valid menu option between " + min + " and " + max);
+            getString("");
             selection = 0;
         }
 
@@ -54,7 +64,7 @@ public class GeneralGameHelper {
 
     public static String getNonEmptyString(String prompt) {
         Scanner scan = new Scanner(System.in);
-        String input = "";
+        String input;
 
         System.out.print(prompt);
 
@@ -62,18 +72,20 @@ public class GeneralGameHelper {
             input = scan.nextLine();
 
             if (input.equalsIgnoreCase("quit")) {
-                System.out.println("\n\"Quit\" cannot be used as a name");
+                clear();
+                System.out.print("\"Quit\" cannot be used as a name");
+                getString("");
+                return "";
             }
 
-            if (input.isEmpty()) {
+            if (input.length() > 20) {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("\nPlease enter a name");
-        }
-
-        if (input.equalsIgnoreCase("quit")) {
-            input = "";
+            clear();
+            System.out.print("Cannot have a name longer than 20 characters");
+            getString("");
+            return "";
         }
 
         return input;
@@ -81,7 +93,7 @@ public class GeneralGameHelper {
 
     public static String getNonEmptyStringQ(String prompt) {
         Scanner scan = new Scanner(System.in);
-        String input = "";
+        String input;
 
         System.out.print(prompt);
 
@@ -90,18 +102,20 @@ public class GeneralGameHelper {
 
             if (input.equalsIgnoreCase("quit")) {
                 quit();
-                System.out.println("\n\"Quit\" cannot be used as a name");
+                clear();
+                System.out.print("\"Quit\" cannot be used as a name");
+                getString("");
+                return "";
             }
 
-            if (input.isEmpty()) {
+            if (input.length() > 20) {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("\nPlease enter a name");
-        }
-
-        if (input.equalsIgnoreCase("quit")) {
-            input = "";
+            clear();
+            System.out.print("Cannot have a name longer than 20 characters");
+            getString("");
+            return "";
         }
 
         return input;
@@ -130,17 +144,13 @@ public class GeneralGameHelper {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("\nPlease select a valid positive number");
-            number = 0;
+            clear();
+            System.out.print("Please select a valid positive number");
+            getString("");
+            return 0;
         }
 
         return number;
-    }
-
-    public static void printAnimalList(ArrayList<Animal> list) {
-        for (Animal a : list) {
-            System.out.println(a.getName());
-        }
     }
 
     public static void printAnimalListWithPrice(ArrayList<Animal> list) {
@@ -162,7 +172,6 @@ public class GeneralGameHelper {
     }
 
     public static void printPlayerSummary(Player player) {
-        clear();
         System.out.println(player.getName() + "'s player summary\r\n");
 
         if (player.getLastRoundsDeadAnimals().isEmpty()) {
@@ -287,7 +296,8 @@ public class GeneralGameHelper {
     private static void quit() {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("\nQuitting will end the game for all players and no final score will be given. This cannot be undone");
+        GeneralGameHelper.clear();
+        System.out.println("Quitting will end the game for all players and no final score will be given. This cannot be undone");
         System.out.print("Please verify that you would like to quit the game by typing QUIT: ");
 
         if (scan.nextLine().equalsIgnoreCase("quit")) {

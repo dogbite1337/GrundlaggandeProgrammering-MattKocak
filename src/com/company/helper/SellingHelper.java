@@ -1,10 +1,13 @@
-package com.company;
+package com.company.helper;
+
+import com.company.Player;
+import com.company.Store;
+import com.company.animal.Animal;
 
 import java.util.ArrayList;
 
 public class SellingHelper {
     public static void printSellingMenu() {
-        GeneralGameHelper.clear();
         System.out.println("1) Sell elephant");
         System.out.println("2) Sell buffalo");
         System.out.println("3) Sell boar");
@@ -63,14 +66,14 @@ public class SellingHelper {
             }
 
             if (!GeneralGameHelper.isAnimalInList(name, list)) {
-                System.out.println("\r\n" + name + " is not a listed animal. Please choose an animal that is listed");
+                GeneralGameHelper.clear();
+                GeneralGameHelper.getString(name + " is not a listed animal. Please choose an animal that is listed");
                 name = "";
             }
         } while (name.isEmpty());
 
         GeneralGameHelper.clear();
-        System.out.print(name + " was sold for " + player.sellAnimal(name) + " coins");
-        GeneralGameHelper.getString("");
+        GeneralGameHelper.getString(name + " was sold for " + Store.sellAnimal(player, name) + " coins");
 
         return 1;
     }

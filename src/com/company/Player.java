@@ -1,8 +1,10 @@
 package com.company;
+import com.company.animal.Animal;
+
 import java.util.*;
 
 public class Player {
-    private static final int STARTMONEY = 1000;
+    private static final int STARTMONEY = 1500;
     private final String name;
     private int money;
     private final ArrayList<ArrayList<Animal>> animalList;
@@ -61,16 +63,36 @@ public class Player {
         return money;
     }
 
+    public void setMoney(int amount) {
+        money = amount;
+    }
+
     public int getHay() {
         return hay;
+    }
+
+    public void setHay(int amount) {
+        hay = amount;
     }
 
     public int getSoy() {
         return soy;
     }
 
+    public void setSoy(int amount) {
+        soy = amount;
+    }
+
     public int getPellets() {
         return pellets;
+    }
+
+    public void setPellets(int amount) {
+        pellets = amount;
+    }
+
+    public ArrayList<ArrayList<Animal>> getAnimalList() {
+        return animalList;
     }
 
     public ArrayList<Animal> getMaleElephants() {
@@ -123,146 +145,6 @@ public class Player {
 
     public void noLongerPlaying() {
         playing = false;
-    }
-
-    public Animal getAnimal(String name) {
-        for (ArrayList<Animal> l : animalList) {
-            for (Animal a : l) {
-                if (a.getName().equalsIgnoreCase(name)) {
-                    return a;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public int numMaleElephants() {
-        return maleElephant.size();
-    }
-
-    public int numFemaleElephants() {
-        return femaleElephant.size();
-    }
-
-    public int numMaleBuffaloes() {
-        return maleBuffalo.size();
-    }
-
-    public int numFemaleBuffaloes() {
-        return femaleBuffalo.size();
-    }
-
-    public int numMaleBoars() {
-        return maleBoar.size();
-    }
-
-    public int numFemaleBoars() {
-        return femaleBoar.size();
-    }
-
-    public int numMaleHares() {
-        return maleHare.size();
-    }
-
-    public int numFemaleHares() {
-        return femaleHare.size();
-    }
-
-    public int numMaleMice() {
-        return maleMouse.size();
-    }
-
-    public int numFemaleMice() {
-        return femaleMouse.size();
-    }
-
-    public Animal buyElephant(String name, String sex) {
-        Elephant e = new Elephant(name, sex, "Elephant", "Elephants");
-
-        if (sex.equals("Male")) {
-            maleElephant.add(e);
-        } else {
-            femaleElephant.add(e);
-        }
-
-        this.money -= Elephant.cost;
-
-        return e;
-    }
-
-    public Animal buyBuffalo(String name, String sex) {
-        Buffalo b = new Buffalo(name, sex, "Buffalo", "Buffaloes");
-
-        if (sex.equals("Male")) {
-            maleBuffalo.add(b);
-        } else {
-            femaleBuffalo.add(b);
-        }
-
-        this.money -= Buffalo.cost;
-
-        return b;
-    }
-
-    public Animal buyBoar(String name, String sex) {
-        Boar b = new Boar(name, sex, "Boar", "Boars");
-
-        if (sex.equals("Male")) {
-            maleBoar.add(b);
-        } else {
-            femaleBoar.add(b);
-        }
-
-        this.money -= Boar.cost;
-
-        return b;
-    }
-
-    public Animal buyHare(String name, String sex) {
-        Hare h = new Hare(name, sex, "Hare", "Hares");
-
-        if (sex.equals("Male")) {
-            maleHare.add(h);
-        } else {
-            femaleHare.add(h);
-        }
-
-        this.money -= Hare.cost;
-
-        return h;
-    }
-
-    public Animal buyMouse(String name, String sex) {
-        Mouse m = new Mouse(name, sex, "Mouse", "Mice");
-
-        if (sex.equals("Male")) {
-            maleMouse.add(m);
-        } else {
-            femaleMouse.add(m);
-        }
-
-        this.money -= Mouse.cost;
-
-        return m;
-    }
-
-    public void buyHay(int amount) {
-        this.hay += amount;
-
-        this.money -= (Hay.cost * amount);
-    }
-
-    public void buySoy(int amount) {
-        this.soy += amount;
-
-        this.money -= (Soy.cost * amount);
-    }
-
-    public void buyPellets(int amount) {
-        this.pellets += amount;
-
-        this.money -= (Pellets.cost * amount);
     }
 
     public boolean isNamePresent(String name) {
@@ -321,20 +203,6 @@ public class Player {
                 }
             }
         }
-    }
-
-    public int sellAnimal(String name) {
-        for (ArrayList<Animal> l : animalList) {
-            for (Animal a : l) {
-                if (a.getName().equalsIgnoreCase(name)) {
-                    money += (a.getPrice() * ((double) a.getHealth() / 100));
-                    l.remove(a);
-                    return (int) (a.getPrice() * ((double) a.getHealth() / 100));
-                }
-            }
-        }
-
-        return 0;
     }
 
     public boolean hasLiveAnimals() {
