@@ -9,31 +9,41 @@ public class Game {
     private int totalRounds;
     private int round;
     private int numPlayers;
-    private final LinkedList<Player> players;
+    private LinkedList<Player> players;
 
     public Game () {
-        System.out.println("Welcome to Animal Farm!");
-        GeneralGameHelper.getString("Press ENTER to continue or type QUIT to exit game\r\n");
-        this.players = new LinkedList<>();
-        this.round = 1;
+        this.gamePlay();
     }
 
-    public int numRounds() {
-        return totalRounds;
+    private void gamePlay() {
+        do {
+            GeneralGameHelper.clear();
+            System.out.println("Welcome to Animal Farm!");
+            GeneralGameHelper.getString("Press ENTER to continue or type QUIT to exit game");
+
+            this.players = new LinkedList<>();
+            this.round = 1;
+
+            this.getNumPlayers();
+            this.getPlayerNames();
+            this.getNumRounds();
+
+            while (totalRounds - round >= 0) {
+                this.playRound();
+            }
+
+            this.scoreGame();
+        } while (lastDialog().equalsIgnoreCase("Y"));
     }
 
-    public int getRound() {
-        return round;
-    }
-
-    public void getNumPlayers() {
+    private void getNumPlayers() {
         do {
             GeneralGameHelper.clear();
             this.numPlayers = GeneralGameHelper.getPositiveNumberInRangeQ("Number of players (1-4): ", 1, 4);
         } while (this.numPlayers == 0);
     }
 
-    public void getPlayerNames() {
+    private void getPlayerNames() {
         for (int i = 1; i <= numPlayers; i++) {
             String input;
 
@@ -65,14 +75,14 @@ public class Game {
         GeneralGameHelper.getString("\r\nEach player will start with " + players.get(0).getMoney() + " coins");
     }
 
-    public void getNumRounds() {
+    private void getNumRounds() {
         do {
             GeneralGameHelper.clear();
             totalRounds = GeneralGameHelper.getPositiveNumberInRangeQ("Number of rounds to play (5-30): ", 5, 30);
         } while (totalRounds == 0);
     }
 
-    public void playRound() {
+    private void playRound() {
         for (Player player : players) {
             if (!player.isPlaying()) {
                 continue;
@@ -313,7 +323,7 @@ public class Game {
         }
     }
 
-    public void scoreGame() {
+    private void scoreGame() {
         GeneralGameHelper.clear();
         System.out.println("You've played all " + totalRounds + " of " + totalRounds + " rounds");
         System.out.println("The animals for each player will now be liquidated and added to the player's current coin total");
@@ -361,7 +371,7 @@ public class Game {
         }
     }
 
-    public static String lastDialog() {
+    private static String lastDialog() {
         GeneralGameHelper.clear();
         return GeneralGameHelper.getString("Would you like to play another game (Y/N)? ");
     }
