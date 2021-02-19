@@ -6,8 +6,14 @@ import com.company.food.Hay;
 import com.company.food.Pellets;
 import com.company.food.Soy;
 
+/**
+ * Contains static methods to help with buying buying food
+ */
 public class BuyingFoodHelper {
-
+    /**
+     * Prints the menu used to buy food
+     * @param player Player whose turn it is
+     */
     public static void printBuyingFoodMenu(Player player) {
         System.out.print("You have " + player.getMoney() + " coins");
         if (player.getHay() != 0 || player.getSoy() != 0 || player.getPellets() != 0) {
@@ -31,6 +37,13 @@ public class BuyingFoodHelper {
         System.out.println("5) End turn");
     }
 
+    /**
+     * Prompts user to choose the amount of hay, soy, or pellets that they would like to buy. Notifies them
+     * if they don't have enough money to buy food
+     * @param player Player whose turn it is
+     * @param selection int selection from the buying menu indicating which food the player wants to buy
+     * @return 1 if player successfully bought food, 0 otherwise
+     */
     public static int chooseAmountAndBuy(Player player, int selection) {
         int amount;
         GeneralGameHelper.clear();

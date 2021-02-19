@@ -2,10 +2,16 @@ package com.company.helper;
 
 import com.company.Player;
 import com.company.animal.Animal;
-
 import java.util.*;
 
+/**
+ * Contains static methods to help with feeding animals
+ */
 public class FeedingHelper {
+    /**
+     * Prints the menu used to feed animals
+     * @param player Player whose turn it is
+     */
     public static void printFeedingMenu(Player player) {
         System.out.print("You have " + player.getMoney() + " coins");
         if (player.getHay() != 0 || player.getSoy() != 0 || player.getPellets() != 0) {
@@ -29,6 +35,14 @@ public class FeedingHelper {
         System.out.println("5) End turn");
     }
 
+    /**
+     * Prints the animals that a player can feed and prompts them to enter the name of the animal that
+     * they would like to feed
+     * @param player Player whose turn it is
+     * @param selection int selection from the feeding menu indicating which food the player would
+     *                  like to feed their animals
+     * @return 1 if an animal was fed, 0 otherwise
+     */
     public static int selectAndFeedAnimal(Player player, int selection) {
         List<Animal> list = new ArrayList<>();
 

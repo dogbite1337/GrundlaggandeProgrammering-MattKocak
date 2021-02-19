@@ -2,19 +2,28 @@ package com.company;
 
 import com.company.animal.Mouse;
 import com.company.helper.*;
-
 import java.util.*;
 
+/**
+ * Primary class used to conduct gameplay and keep track of players and rounds
+ */
 public class Game {
-    private int totalRounds;
-    private int round;
-    private int numPlayers;
-    private LinkedList<Player> players;
+    private int totalRounds; //Number of total rounds that will be played
+    private int round; //Current game's round being played
+    private int numPlayers; //Number of players playing a game
+    private LinkedList<Player> players; //List of players playing a game
 
+    /**
+     * Starts gameplay upon construction
+     */
     public Game () {
         this.gamePlay();
     }
 
+    /**
+     * Primary Game method that plays a game from start to finish and continues to do so while players
+     * choose to play more games
+     */
     private void gamePlay() {
         do {
             GeneralGameHelper.clear();
@@ -32,10 +41,20 @@ public class Game {
                 this.playRound();
             }
 
+            GeneralGameHelper.getString("That concludes the final round. A summary for each player will now be printed");
+            for (Player p : players) {
+                GeneralGameHelper.clear();
+                GeneralGameHelper.printPlayerSummary(p);
+                GeneralGameHelper.getString("");
+            }
+
             this.scoreGame();
         } while (lastDialog().equalsIgnoreCase("Y"));
     }
 
+    /**
+     * Asks user for number of players in game and sets this field in Game
+     */
     private void getNumPlayers() {
         do {
             GeneralGameHelper.clear();
@@ -43,6 +62,9 @@ public class Game {
         } while (this.numPlayers == 0);
     }
 
+    /**
+     * Asks users for player names and adds it to the players list in Game
+     */
     private void getPlayerNames() {
         for (int i = 1; i <= numPlayers; i++) {
             String input;
@@ -75,6 +97,9 @@ public class Game {
         GeneralGameHelper.getString("\r\nEach player will start with " + players.get(0).getMoney() + " coins");
     }
 
+    /**
+     * Asks user for number of rounds to play and sets this field in Game
+     */
     private void getNumRounds() {
         do {
             GeneralGameHelper.clear();
@@ -82,6 +107,9 @@ public class Game {
         } while (totalRounds == 0);
     }
 
+    /**
+     * Primary method used so that a player can play a game round and choose various actions
+     */
     private void playRound() {
         for (Player player : players) {
             if (!player.isPlaying()) {
@@ -145,10 +173,20 @@ public class Game {
         this.round++;
     }
 
+    /**
+     * Determines if a player has any animals and, if not, if they don't have enough money to buy an animal.
+     * A player is considered "out" if these conditions are met
+     * @param player Player being evaluated
+     * @return True if conditions are met, False otherwise
+     */
     private boolean isPlayerOut(Player player) {
         return !player.hasLiveAnimals() && player.getMoney() < Mouse.cost;
     }
 
+    /**
+     * Used to print a round's main menu and get a player's selection from that menu
+     * @return int containing the player's main menu selection
+     */
     private int getMainMenuSelection() {
         int selection;
 
@@ -160,6 +198,9 @@ public class Game {
         return selection;
     }
 
+    /**
+     * Prints a round's main menu
+     */
     private void printMainMenu() {
         System.out.println("1) Buy animals");
         System.out.println("2) Buy food");
@@ -170,6 +211,11 @@ public class Game {
         System.out.println("QUIT) Quit the game");
     }
 
+    /**
+     * Prints buying animals menu and gets the player's selection
+     * @param player Player playing this round
+     * @return 1 if player bought an animal, 0 otherwise
+     */
     private int getBuyingAnimalsSelection(Player player) {
         int selection;
         int canNotGoBack = 0;
@@ -203,6 +249,11 @@ public class Game {
         }
     }
 
+    /**
+     * Prints buying food menu and gets the player's selection
+     * @param player Player playing this round
+     * @return 1 if player bought food, 0 otherwise
+     */
     private int getBuyingFoodSelection(Player player) {
         int selection;
         int canNotGoBack = 0;
@@ -236,6 +287,11 @@ public class Game {
         }
     }
 
+    /**
+     * Prints feeding animals menu and gets the player's selection
+     * @param player Player playing this round
+     * @return 1 if player fed an animal, 0 otherwise
+     */
     private int getFeedingSelection(Player player) {
         int selection;
         int canNotGoBack = 0;
@@ -268,6 +324,11 @@ public class Game {
         }
     }
 
+    /**
+     * Prints mating animals menu and gets the player's selection
+     * @param player Player playing this round
+     * @return 1 if player attempted to mate an animal, 0 otherwise
+     */
     private int getMatingSelection(Player player) {
         int selection;
         int mated = 0;
@@ -291,6 +352,11 @@ public class Game {
         }
     }
 
+    /**
+     * Prints selling animals menu and gets the player's selection
+     * @param player Player playing this round
+     * @return 1 if player sold an animal, 0 otherwise
+     */
     private int getSellingSelection(Player player) {
         int selection;
         int canNotGoBack = 0;
@@ -323,6 +389,9 @@ public class Game {
         }
     }
 
+    /**
+     * Calculates each player's final coin score and displays it to the users
+     */
     private void scoreGame() {
         GeneralGameHelper.clear();
         System.out.println("You've played all " + totalRounds + " of " + totalRounds + " rounds");
@@ -355,6 +424,9 @@ public class Game {
         GeneralGameHelper.getString("");
     }
 
+    /**
+     * Calculates each player's final coin score and orders the players list in descending order
+     */
     private void determinePlayerScoreAndSort() {
         for (Player player : players) {
             player.calculateFinalScore();
@@ -371,6 +443,10 @@ public class Game {
         }
     }
 
+    /**
+     * Prompts players as to whether they want to play another game and gets their response
+     * @return string signifying whether or not players want to play another game
+     */
     private static String lastDialog() {
         GeneralGameHelper.clear();
         return GeneralGameHelper.getString("Would you like to play another game (Y/N)? ");

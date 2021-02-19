@@ -3,10 +3,15 @@ package com.company.helper;
 import com.company.Player;
 import com.company.Store;
 import com.company.animal.*;
-
 import java.util.*;
 
+/**
+ * Contains static methods to help with mating animals
+ */
 public class MatingHelper {
+    /**
+     * Prints the menu used to mate animals
+     */
     public static void printMatingMenu() {
         System.out.println("1) Mate elephants");
         System.out.println("2) Mate buffaloes");
@@ -16,6 +21,14 @@ public class MatingHelper {
         System.out.println("6) Go back");
     }
 
+    /**
+     * Determines if there are any animals of the given type that can mate and asks the player to confirm that
+     * they would like to mate animals of this type
+     * @param player Player whose turn it is
+     * @param selection int selection from the mating menu indicating which type of animal the player would
+     *                  like to mate
+     * @return 1 if mating was attempted, 0 otherwise
+     */
     public static int mateAnimals(Player player, int selection) {
         boolean canMate = printTypeAndSex(player, selection);
 
@@ -33,6 +46,13 @@ public class MatingHelper {
         }
     }
 
+    /**
+     * Prints the number of male and female animals a player has of a given type
+     * @param player Player being evaluated
+     * @param selection int selection from the mating menu indicating which type of animal the player
+     *                  wants to mate
+     * @return 1 if the player has at least one male and one female of a given type, 0 otherwise
+     */
     private static boolean printTypeAndSex(Player player, int selection) {
         GeneralGameHelper.clear();
 
@@ -69,6 +89,11 @@ public class MatingHelper {
         }
     }
 
+    /**
+     * Attempts to mate animals of a given type and, if successful, prompts the user for the new animal's name
+     * @param player Player whose turn it is
+     * @param selection int selection from the mating menu of the animal type being mated
+     */
     private static void attemptMatingAnimals(Player player, int selection) {
         Random rand = new Random();
         int success = rand.nextInt(2);

@@ -4,7 +4,14 @@ import com.company.Player;
 import com.company.Store;
 import com.company.animal.*;
 
+/**
+ * Contains statics methods that help with buying animals
+ */
 public class BuyingAnimalsHelper {
+    /**
+     * Prints menu for buying animals
+     * @param player Player whose turn it is
+     */
     public static void printBuyingAnimalsMenu(Player player) {
         System.out.println("You have " + player.getMoney() + " coins");
         System.out.println("\r\n1) Buy elephant (" + Elephant.cost + " coins)");
@@ -16,6 +23,12 @@ public class BuyingAnimalsHelper {
         System.out.println("7) End turn");
     }
 
+    /**
+     * Allows player to determine the sex and name of the animal that they are going to buy
+     * @param player Player buying the animal
+     * @param selection int selection which signifies which animal the player wants to buy
+     * @return 1 if the player bought an animal, 0 otherwise
+     */
     public static int chooseSexAndNameAndBuy(Player player, int selection) {
         if (selection == 1 && player.getMoney() < Elephant.cost) {
             GeneralGameHelper.clear();
@@ -100,6 +113,11 @@ public class BuyingAnimalsHelper {
         }
     }
 
+    /**
+     * Prompts the user for the sex they would like the purchased animal to be
+     * @param animal String with the animal type's name
+     * @return 1 if male, 2 if female, 3 to abort purchase
+     */
     private static int getSex(String animal) {
         int selection;
 
@@ -112,12 +130,21 @@ public class BuyingAnimalsHelper {
         return selection;
     }
 
+    /**
+     * Prints the menu to choose an animal's sex
+     */
     private static void printGetSexMenu() {
         System.out.println("1) Male");
         System.out.println("2) Female");
         System.out.println("3) Back to previous menu");
     }
 
+    /**
+     * Prompts user for their new animal's name
+     * @param player Player buying the animal
+     * @param animal String with the animal type's name (ex. elephant)
+     * @return String with the chosen name. "" is returned if the name was already used by another animal
+     */
     public static String getAnimalName(Player player, String animal) {
         String name;
 

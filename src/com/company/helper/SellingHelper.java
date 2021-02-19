@@ -3,10 +3,15 @@ package com.company.helper;
 import com.company.Player;
 import com.company.Store;
 import com.company.animal.Animal;
-
 import java.util.ArrayList;
 
+/**
+ * Contains statics methods that help with selling animals
+ */
 public class SellingHelper {
+    /**
+     * Prints the menu used to sell animals
+     */
     public static void printSellingMenu() {
         System.out.println("1) Sell elephant");
         System.out.println("2) Sell buffalo");
@@ -17,6 +22,13 @@ public class SellingHelper {
         System.out.println("7) End turn");
     }
 
+    /**
+     * Prints the animals that a player can sell of a given type and prompts the user of the name of the
+     * animal that they would like to sell. Sells animal inputted
+     * @param player Player whose turn it is
+     * @param selection int selection from the selling menu of which type of animal will be sold
+     * @return 1 if an animal was sold, 0 otherwise
+     */
     public static int selectAndSellAnimal(Player player, int selection) {
         ArrayList<Animal> list = new ArrayList<>();
 
